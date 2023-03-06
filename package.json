@@ -1,0 +1,35 @@
+{
+	"name": "vscode-i-am-closed",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/johnsoncodehk/vscode-i-am-closed.git"
+	},
+	"sponsor": {
+		"url": "https://github.com/sponsors/johnsoncodehk"
+	},
+	"icon": "images/icon.png",
+	"displayName": "I'm Closed",
+	"description": "Show you who closed",
+	"author": "johnsoncodehk",
+	"publisher": "johnsoncodehk",
+	"engines": {
+		"vscode": "^1.76.0"
+	},
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "out/extension",
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc --watch",
+		"pack": "yarn build && vsce package",
+		"release": "yarn build && vsce publish"
+	},
+	"devDependencies": {
+		"@types/node": "latest",
+		"@types/vscode": "1.76.0",
+		"typescript": "latest",
+		"vsce": "latest"
+	}
+}

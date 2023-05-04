@@ -36,8 +36,8 @@
 	"scripts": {
 		"build": "tsc",
 		"watch": "tsc --watch",
-		"pack": "yarn build && vsce package",
-		"release": "yarn build && vsce publish"
+		"pack": "npm run build && vsce package",
+		"release": "npm run build && vsce publish"
 	},
 	"devDependencies": {
 		"@types/node": "latest",

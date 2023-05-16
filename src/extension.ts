@@ -41,12 +41,9 @@ export function activate(context: vscode.ExtensionContext) {
 					continue;
 				}
 
-				const startLine = document.lineAt(foldingRange.start - 1);
-				const endLine = document.lineAt(foldingRange.end);
-
 				result.push({
-					label: startLine.text.trimStart(),
-					position: endLine.range.end,
+					label: `[L${foldingRange.start}] ` + document.lineAt(foldingRange.start - 1).text.trimStart(),
+					position: document.lineAt(foldingRange.end).range.end,
 					paddingLeft: true,
 				});
 			}

@@ -46,14 +46,8 @@ export function activate(context: vscode.ExtensionContext) {
 				const startLine = document.lineAt(foldingRange.start - 1);
 				const endLine = document.lineAt(foldingRange.end);
 
-				let text = startLine.text.trimStart();
-
-				if (text.length >= 33) {
-					text = text.slice(0, 30) + '...';
-				}
-
 				result.push({
-					label: text,
+					label: startLine.text.trimStart(),
 					position: endLine.range.end,
 					paddingLeft: true,
 				});

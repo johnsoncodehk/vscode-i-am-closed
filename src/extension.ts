@@ -31,14 +31,16 @@ export function activate(context: vscode.ExtensionContext) {
 					foldingRange.end - foldingRange.start > range.end.line - range.start.line
 				);
 				const selectedLine = editor.selection.active.line === foldingRange.end;
+				const selectedLastCharacter = editor.selection.active.character === editor.document.lineAt(foldingRange.end).range.end.character;
+				const isValidSelected = selectedLine && !selectedLastCharacter;
 
 				if (vscode.workspace.getConfiguration('iAmClosed').get('showOnlySelectedLine')) {
-					if (!selectedLine) {
+					if (!isValidSelected) {
 						continue;
 					}
 				}
 				else {
-					if (!cantSeeStartBlock && !selectedLine) {
+					if (!cantSeeStartBlock && !isValidSelected) {
 						continue;
 					}
 				}

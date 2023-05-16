@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		onDidChangeInlayHints: selectionEventEmitter.event,
 
-		async provideInlayHints(document) {
+		async provideInlayHints(document, range, token) {
 
 			if (vscode.window.activeTextEditor?.document !== document) {
 				return;
@@ -27,22 +27,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 			for (const foldingRange of foldingRanges) {
 
-				const cantSeeStartBlock = editor.visibleRanges.every(range =>
-					foldingRange.end - foldingRange.start > range.end.line - range.start.line
-				);
+				if (token.isCancellationRequested) {
+					return;
+				}
+				if (foldingRange.end < range.start.line || foldingRange.end > range.end.line) {
+					continue;
+				}
+
 				const selectedLine = editor.selection.active.line === foldingRange.end;
 				const selectedLastCharacter = editor.selection.active.character === editor.document.lineAt(foldingRange.end).range.end.character;
 				const isValidSelected = selectedLine && !selectedLastCharacter;
-
-				if (vscode.workspace.getConfiguration('iAmClosed').get('showOnlySelectedLine')) {
-					if (!isValidSelected) {
-						continue;
-					}
-				}
-				else {
-					if (!cantSeeStartBlock && !isValidSelected) {
-						continue;
-					}
+				if (!isValidSelected) {
+					continue;
 				}
 
 				const startLine = document.lineAt(foldingRange.start - 1);

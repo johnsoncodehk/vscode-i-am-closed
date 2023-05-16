@@ -19,19 +19,6 @@
 	"activationEvents": [
 		"onStartupFinished"
 	],
-	"contributes": {
-		"configuration": {
-			"title": "I'm Closed",
-			"type": "object",
-			"properties": {
-				"iAmClosed.showOnlySelectedLine": {
-					"type": "boolean",
-					"default": true,
-					"description": "Show only selected line"
-				}
-			}
-		}
-	},
 	"main": "out/extension",
 	"scripts": {
 		"build": "tsc",
